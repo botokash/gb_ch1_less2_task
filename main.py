@@ -80,7 +80,7 @@ def sorting_yard(exp):
           }
         )
       else:
-        if oper_stack \
+        while oper_stack \
           and (oper_stack[-1] in operators) \
           and (grade(lexeme) <= grade(oper_stack[-1])):
           result_stack.append(
@@ -92,6 +92,7 @@ def sorting_yard(exp):
         oper_stack.append(lexeme)
     
     last_type = type
+    print(polish_repr(result_stack), oper_stack)
 
   while oper_stack:
     result_stack.append(
@@ -110,6 +111,7 @@ def polish_repr(data):
     tokens.append(el['value'])
   return ' '.join(tokens)
 
+
 def calc(stack):
   buff_stack = []
   for token in stack:
@@ -123,13 +125,15 @@ def calc(stack):
   return buff_stack[0]
 
 
-exp = input()
-exp = exp.replace(' ', '')
+if __name__ == '__main__':
 
-try:
-  exp_stack = sorting_yard(exp)
-  print(polish_repr(exp_stack))
-  result = calc(exp_stack)
-  print(result)
-except ValueError as err:
-  print(err)
+  exp = input()
+  exp = exp.replace(' ', '')
+
+  try:
+    exp_stack = sorting_yard(exp)
+    print(polish_repr(exp_stack))
+    result = calc(exp_stack)
+    print(result)
+  except ValueError as err:
+    print(err)
